@@ -1,10 +1,10 @@
 import os
 import tornado.ioloop
-import tornado.web.RequestHandler as RequestHandler 
-import tornado.web.Application as Application
+from tornado.web import RequestHandler as RequestHandler 
+from tornado.web import Application as Application
 
-from handlers.user_handler import UserHandler
-
+from handlers.user_handler import UserHandler as UserHandler
+ 
 class MainHandler(RequestHandler):
     def get(self):
         self.render("demo.html", msg = "666,play with tornado")
@@ -23,3 +23,14 @@ if __name__ == "__main__":
     app = init_app()
     app.listen(9696)
     tornado.ioloop.IOLoop.current().start()
+
+
+
+
+
+
+
+
+
+
+
