@@ -4,15 +4,20 @@ from tornado.web import RequestHandler as RequestHandler
 from tornado.web import Application as Application
 
 from handlers.user_handler import UserHandler as UserHandler
- 
-class MainHandler(RequestHandler):
+
+class TestHandler(RequestHandler):
     def get(self):
-        self.render("demo.html", msg = "666,play with tornado")
+        self.render("test.html", NAME="test")
+
+class LoginHandler(RequestHandler):
+    def get(self):
+        self.render("page-login.html")
 
 def init_app():
     return Application([
-        (r"/remy", MainHandler),
-        (r"/user", UserHandler)
+        (r"/user", UserHandler),
+        (r"/test", TestHandler),
+        (r"/login", LoginHandler)
     ],
     template_path = os.path.join(os.path.dirname(__file__), "templates"),
     static_path = os.path.join(os.path.dirname(__file__), "static"),
