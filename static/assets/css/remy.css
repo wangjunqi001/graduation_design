@@ -1,0 +1,22 @@
+#course-upload-title {
+  margin: 20px;
+  font-family: Microsoft Yahei;
+  display: block;
+}
+
+.course-upload-form {
+  padding-left: 100px;
+  padding-top: 30px;
+  display: block;
+}
+
+.form-element {
+  height: 40px;
+  display: block;
+  line-height: 40px;
+  margin: 20px 40px;
+}
+
+.form-element botton {
+  margin: 20px 20px;
+}

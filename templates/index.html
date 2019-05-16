@@ -27,6 +27,7 @@
       href="static/assets/vendor/chartist/css/chartist-custom.css"
     />
     <!-- MAIN CSS -->
+		<link rel="stylesheet" href="static/assets/css/remy.css" />
     <link rel="stylesheet" href="static/assets/css/main.css" />
     <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
     <link rel="stylesheet" href="static/assets/css/demo.css" />
@@ -117,9 +118,6 @@
                   </li>
                 </ul>
               </li>
-              <!-- <li>
-							<a class="update-pro" href="#downloads/klorofil-pro-bootstrap-admin-dashboard-template/?utm_source=klorofil&utm_medium=template&utm_campaign=KlorofilPro" title="Upgrade to Pro" target="_blank"><i class="fa fa-rocket"></i> <span>UPGRADE TO PRO</span></a>
-						</li> -->
             </ul>
           </div>
           <div style="display: none">
@@ -135,28 +133,31 @@
         <div class="sidebar-scroll">
           <nav>
             <ul class="nav">
-              <li>
-                <a hrefs="index.html" class="active"
+              <li class="active">
+                <a href="/index"
                   ><i class="lnr lnr-home"></i> <span>主页</span></a
                 >
               </li>
-              <li>
-                <a href="elements.html" class=""
-                  ><i class="lnr lnr-code"></i> <span>课程学习</span></a
-                >
+							{% if USER_TYPE == 0 %}
+              <li class="">
+								<!--<a href="#" >-->
+								<a class="" onclick="javascript:getStaticContent('/course_upload')">
+									<i class="lnr lnr-code"></i> <span>课程学习</span>
+								</a>
               </li>
-              <li>
-                <a href="charts.html" class=""
+              <li class="">
+                <a href="#"
                   ><i class="lnr lnr-chart-bars"></i> <span>课程检索</span></a
                 >
               </li>
-              <li>
-                <a href="panels.html" class=""
+							{% elif USER_TYPE == 1 %}
+              <li class="">
+                <a href="#"
                   ><i class="lnr lnr-cog"></i> <span>课程状态管理</span></a
                 >
               </li>
-              <li>
-                <a href="notifications.html" class=""
+              <li class="">
+                <a href="#"
                   ><i class="lnr lnr-alarm"></i> <span>课程上传</span></a
                 >
               </li>
@@ -167,11 +168,12 @@
                 ></a>
                 <div id="subPages" class="collapse ">
                   <ul class="nav">
-                    <li><a href="page-profile.html" class="">课程编辑</a></li>
-                    <li><a href="page-login.html" class="">课程删除</a></li>
+                    <li class=""><a href="#">课程编辑</a></li>
+                    <li class=""><a href="#">课程删除</a></li>
                   </ul>
                 </div>
               </li>
+							{% end %}
             </ul>
           </nav>
         </div>
@@ -180,7 +182,7 @@
 			{% end %}
 			{% block main %}
       <!-- MAIN -->
-      <div class="main">
+      <div id="main" class="main">
 				<h2 id="test">TODO: INDEX</h2>
       </div>
       <!-- END MAIN -->
@@ -202,6 +204,7 @@
     <!-- END WRAPPER -->
 	<!-- Javascript -->
 	  {% block js %}
+		<script src="static/assets/scripts/remy-course.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="static/assets/vendor/jquery/jquery.min.js"></script>
     <script src="static/assets/vendor/bootstrap/js/bootstrap.min.js"></script>

@@ -29,14 +29,15 @@ class UserHandler(RequestHandler):
             ret = self.user_module.handler_user(self.user_dict)
         except Exception as e:
             self.write("user_module_error: %s" % str(e))
+            return
 
         if ret.get("msg") == "登录成功！":
             ret_msg = "".join([user_type[int(ret["user_type"])], ret["msg"], " ", "用户名：", self.user_dict["name"]])
             self.set_cookie("name", unicode(self.user_dict["name"]))
             self.set_cookie("pass_wd", unicode(self.user_dict["pass_wd"]))
             self.set_cookie("user_type", unicode(ret["user_type"]))
-            #TODO different user
-            self.render("index.html", NAME=self.user_dict["name"])
+
+            self.render("index.html", NAME=self.user_dict["name"], USER_TYPE=int(self.get_cookie("user_type", "-1")))
         elif ret.get("msg") == "注册成功！":
             ret_msg = "".join([user_type[int(self.user_dict["user_type"])], ret["msg"], " ", "用户名：", self.user_dict["name"]])
             self.render("user_ret.html", msg=ret_msg, mark=1)
