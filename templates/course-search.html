@@ -1,0 +1,44 @@
+<div class="search-header">
+          <div class="search-box">
+            <div class="input-group col-lg-6">
+              <input type="text" class="form-control"/>
+              <span class="input-group-btn">
+                <input class="btn btn-primary" type="button" value="GO"/> 
+              </span>
+            </div>
+          </div> 
+          <div class="search-dropdown-list">
+             <div class="dropdown">
+             <button class="btn btn-default dropdown-toggle col-lg-4" type="button" id="menu1" data-toggle="dropdown">按主题检索
+             <span class="caret"></span></button>
+             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                <li role="presentation"><a role="menuitem" href="#">文史</a></li>
+                <li role="presentation"><a role="menuitem" href="#">计算机</a></li>
+                <li role="presentation"><a role="menuitem" href="#">经济</a></li>
+                <li role="presentation"><a role="menuitem" href="#">建筑</a></li>
+                <li role="presentation"><a role="menuitem" href="#">医学</a></li>
+                <li role="presentation"><a role="menuitem" href="#">机械</a></li>
+             </ul>
+             </div>
+           </div> 
+        </div>
+        <div id="search-course-list" class="search-course-list table-responsive">
+          <table class="table">
+            <caption>课程检索列表</caption>
+            <thead>
+              <tr>
+                <th style="text-align: center;">课程名称</th>
+                <th style="text-align: center;">课程主题</th>
+                <th style="text-align: center;">教师名称</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in course_data %}
+              <tr>
+                <td><a herf="#" onclick="">{{row[0]}}</a></td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+              </tr>
+              {% end %}
+            </tbody>
+        </div>

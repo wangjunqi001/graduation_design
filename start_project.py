@@ -9,6 +9,8 @@ from tornado.web import Application as Application
 
 from handlers.user_handler import UserHandler as UserHandler
 from handlers.course_handler import CourseHandler as CourseHandler
+from handlers.file_handler import FileHandler as FileHandler
+from handlers.chapter_handler import ChapterHandler as ChapterHandler
 
 class TestHandler(RequestHandler):
     def get(self):
@@ -27,6 +29,8 @@ def init_app():
         # 动态网页
         (r"/user", UserHandler),
         (r"/course", CourseHandler),
+        (r"/file", FileHandler),
+        (r"/chapter", ChapterHandler),
 
         # 静态网页，为了能够使用asset以及ajax局部更新，也需要走模板，不走static
         # static的唯一作用就是提供js css img等素材支持
