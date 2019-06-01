@@ -1,0 +1,74 @@
+ <h2 id="main-title">{{COURSE_NAME}}</h2>
+        <div class="display-course-left">
+          <div class="display-course-text">
+            <strong class="remy-strong-font">课程简介：</strong>
+            <p class="remy-text-font">{{COURSE_TEXT}}</p>
+          </div>
+            <strong class="remy-strong-font">课程大纲：</strong>
+            <div class="display-chapter-list">
+              <ol>
+								{% for chapter in CHAPTER_LIST %}
+                <li class="remy-li-font">{{chapter}}</li>
+								{% end %}
+              </ol>
+          </div>
+          <h2 class="remy-list-header">学生评论：</h2>
+          <hr style="width:50%;" />
+        </div>
+        <div class="display-course-right">
+          <div class="display-course-teacher">
+            <strong class="remy-strong-font">讲师：</strong>
+            <p class="remy-text-font">{{TEACHER_NAME}}</p>
+          </div>
+          <div class="display-student-list">
+            <p class="remy-text-font">当前共有 &nbsp;</p>
+            <span style="color:red;">{{len(STUDENT_LIST)}}</span> 
+            <p class="remy-text-font">&nbsp;人在学习该课程</p>
+            <hr/>
+						{% if len(STUDENT_LIST) != 0 %}
+            <ul>
+								{% for student in STUDENT_LIST %}
+                <li class="remy-li-font">{{student}}</li>
+								{% end %}
+            </ul>
+						{% else %}
+            <p style="display:block">暂无人学习该课程！想第一个加入吗？</p>
+						{% end %}
+          </div>
+        </div>
+        <div class="display-comment-wrapper">
+         
+          <div class="display-comment-list">
+						{% if len(COMMENT_LIST) != 0 %}
+					  {% for comment in COMMENT_LIST %}
+            <div class="display-comment-element">
+              <span class="comment-name">{{comment[0]}}</span>  <span class="comment-date">{{comment[1]}}</span></p>
+              <hr style="width:80%;color:yellow;"> 
+              <p><span class="comment-content">&nbsp;&nbsp;{{comment[2]}}</span></p>
+            </div> 
+						{% end %}
+						{% else %}
+            <div class="display-comment-element">
+            <p><span class="comment-content">&nbsp;&nbsp;暂无评论，快来抢沙发吧！</span></p>
+            </div>
+						{% end %}
+          </div>
+          <div class="display-comment-input">
+            <strong class="remy-strong-font">请输入评论：</strong>
+            <textarea class="form-control" id="comment-input" autocomplete="off" rows="5"></textarea>
+            <div class="display-com ment-submit">
+              <a class="btn btn-primary col-sm-1" type="botton" onclick="">提交</a>
+            </div>
+          </div>
+        </div>
+        <div class="display-collect-botton">
+				  {% if HAS_COLLECTED %}
+          <a onclick="" class="btn btn-danger btn-lg" disabled>
+            <span class="glyphicon glyphicon-plus"></span> 该课程以在您的学习列表
+          </a>
+					{% else %}
+          <a onclick='javascript:createProgress("{{COURSE_NAME}}")' class="btn btn-danger btn-lg" >
+            <span class="glyphicon glyphicon-plus"></span> 添加至学习列表
+          </a>
+					{% end %}
+        </div>

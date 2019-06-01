@@ -51,6 +51,21 @@ function ajaxPost(url, data) {
   };
 }
 
+function createProgress(course_name){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("POST", "/chapter", true);
+	data = new FormData();
+	data.append("op_type", "2");
+	data.append("course_name", course_name);
+	xmlhttp.send(data);
+
+  xmlhttp.onreadystatechange = function() {
+		alert(xmlhttp.responseText);
+  };
+
+	getStaticContent('/course');
+}
+
 function courseUpload() {
   var submit_confirm = confirm("准备好要提交了吗？");
   if (submit_confirm) {
@@ -88,6 +103,12 @@ function getStaticContent(url) {
   xmlhttp.onreadystatechange = function() {
     document.getElementById("main").innerHTML = xmlhttp.responseText;
   };
+}
+
+function requestCourseByKey(){
+	var key = document.getElementById("search-box").value;
+	if(!alertNone(key)) return;
+	getStaticContent("/course?op_type=2&key="+key);
 }
 
 function metaFileUpload(index, type) {

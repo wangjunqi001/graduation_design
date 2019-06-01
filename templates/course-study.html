@@ -1,0 +1,81 @@
+<div class="remy-header-wrapper">
+          <h2 style="font-size:32px;font-weight: bold;color:rgb(218, 123, 79)">
+            {{COURSE_NAME}}&nbsp;-&nbsp;{{CHAPTER_NAME}}
+          </h2>
+          <small style="color:peachpuff;font-size:18px;">温故而知新，可以为师矣</small>
+        </div>
+          <div class="study-page-top">
+            <div class="study-area-left">
+              <strong class="remy-strong-font">本章学习内容:</strong><br/>
+              <p class="remy-desc-font">
+                &nbsp;&nbsp;&nbsp;&nbsp;{{CHAPTER_DESC}}
+              </p>
+            </div>
+            <div class="study-area-video">
+              <video width="100%" height="70%" controls>
+                  <source src="/static/course_meta/{{COURSE_NAME}}/{{CHAPTER_NAME}}.mp4" type="video/mp4">
+                   您的浏览器不支持 video播放。
+              </video>
+            </div>
+            <div class="study-area-right">
+              <h2 style="color:rgb(243, 10, 49);font-size: 28px;">
+                任务:
+              </h2>
+              <p style="font-family: YouYuan;font-size:20px;">
+                  &nbsp;&nbsp;&nbsp;&nbsp;{{CHAPTER_TASK}}
+              </p>
+            </div>
+          </div>
+        <div class="display-comment-input">
+          {% if STATE == 0 or STATE == 2 %}
+            <strong class="remy-strong-font">请提交作业：</strong>
+            <textarea class="form-control remy-text-font" id="comment-input" autocomplete="off" rows="5">
+					{% end %}
+              {% if STATE == 2 %}
+                {{TASK}}
+              {% end %}
+            </textarea>
+            <div class="display-comment-submit">
+              {% if STATE == 0  or STATE == 2 %}
+              <a class="btn btn-primary col-sm-1" type="botton" onclick="">提交</a>
+              {% elif STATE == 3 %}
+              <a class="btn btn-danger col-sm-3" type="botton" onclick="" disabled>您已经完成该章节的学习任务</a>
+              {% elif STATE == 1 %}
+              <a class="btn btn-warning col-sm-3" type="botton" onclick="" disabled>已提交，请耐心等待老师回复</a>
+              {% end %}
+            </div>
+        </div>
+        {% if STATE == 2 %}
+        <div class="display-teacher-comment">
+          <strong class="remy-strong-font" style="color:red;font-family:STKaiti">您的作业被退回，老师留言：</strong>
+          <p class="remy-text-font">{{TEACHER_COMMENT}} </p>
+        </div>
+        {% end %}
+        <div class="study-passed-task-list">
+          {% if len(TASK_LIST) != 0 %}
+          <h2 style="font-size:28px;font-weight: bold;color:rgb(218, 123, 79);font-family:STFangsong;">
+            优秀学生作业：
+          </h2>
+          {% for task in TASK_LIST %}
+          <div class="study-passed-task">
+            <strong class="remy-strong-font">{{task[0]}}</strong>
+            <p class="comment-date">{{task[1]}}</p>
+            <hr width="80%" color=#987cb9 size=3/>
+            <div style="height:200px;overflow:auto;padding:10px 20px;">
+              <p class="remy-text-font">{{task[2]}}</p>
+              </p>
+            </div>
+            <div class="teacher-comment">
+              <h2 class="teacher-comment-header">教师点评:</h2>
+              <p>
+                &nbsp;&nbsp;&nbsp;&nbsp;{{task[3]}}
+              </p>
+            </div>
+          </div>
+          {% end %}
+          {% else %}
+          <h2 style="font-size:28px;font-weight: bold;color:rgb(218, 123, 79);font-family:STFangsong;">
+            暂无其他学生的作业信息！想做第一人吗？
+          </h2>
+          {% end %}
+        </div>

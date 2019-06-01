@@ -1,0 +1,65 @@
+       <div class="remy-header-wrapper">
+          <h2 class="remy-header">终日而思，不如须臾之所学也！</h2>
+        </div>
+				{% set COUNT=0 %}
+				{% for course in COURSE_MAP %}
+				{% set COUNT += 1 %}
+        <div class="remy-fold-list">
+          <div class="remy-fold-header">
+          <div class="remy-fold-title">
+            <strong class="remy-strong-font">{{course}}</strong>
+          </div>
+          <div class="remy-fold-number">
+            <p style="color:rgba(120, 114, 202, 0.726);font-size:20px">
+								{% if COURSE_MAP[course]["progress"] != 100 %}
+									进度:&nbsp;{{COURSE_MAP[course]["progress"]}}%
+								{% else %}
+									您已经完成了该课程的所有学习任务！
+								{% end %}
+						</p>
+          </div>
+          <div class="remy-fold-botton">
+          <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#fold-table-{{COUNT}}" onclick="javascript:
+          var fold_icon = document.getElementById('fold-botton-{{COUNT}}');
+          if(fold_icon.getAttribute('class')=='glyphicon glyphicon-minus')
+            fold_icon.setAttribute('class', 'glyphicon glyphicon-plus');
+          else
+            fold_icon.setAttribute('class', 'glyphicon glyphicon-minus');
+          ">
+	          <span id='fold-botton-{{COUNT}}' class="glyphicon glyphicon-plus"></span>
+          </button>
+          </div>
+          </div>
+          <div id="fold-table-{{COUNT}}" class="collapse">
+            <table class="table table-striped" style="text-align:center;">
+	            <thead>
+		            <tr>
+			            <th style="text-align:center;">序号</th>
+			            <th style="text-align:center;">章节</th>
+			            <th style="text-align:center;">状态</th>
+		            </tr>
+	            </thead>
+	            <tbody>
+									{% for chapter_info in COURSE_MAP[course]["chapters"] %}
+		            	<tr>
+		            	<td>{{chapter_info[0]+1}}</td>
+		            	<td><a onclick="javascript: getStaticContent('/chapter?course_name={{course}}&chapter_name={{chapter_info[1]}}&op_type=2')">
+											{{chapter_info[1]}}
+											</a>
+									</td>
+									{% if chapter_info[2] == 0 %}  
+                  <td style="color:red;">作业未提交</td>
+									{% elif chapter_info[2] == 1 %}  
+                  <td>作业待审核</td>
+									{% elif chapter_info[2] == 2 %}  
+                  <td style="color:red;">作业未通过</td>
+									{% elif chapter_info[2] == 3 %}  
+                  <td style="color:green">作业已通过</td>
+									{% end %}
+                	</tr>
+									{% end %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+				{% end %}

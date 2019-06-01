@@ -59,3 +59,265 @@
   margin:80px 200px auto 50px;
   text-align: center;
 }
+
+.display-course-text{
+  width:80%;
+  height:300px;
+}
+
+.display-course-teacher{
+  height:200px;
+  width:80%;
+}
+
+
+
+.display-chapter-list{
+  width:80%;
+  margin-top:20px;
+  margin-left:200px;
+}
+
+.display-student-list{
+  margin-top:20px;
+  margin-left:50px;
+  width:80%;
+}
+
+.remy-strong-font{
+  font-size:20px;
+  display:inline-block;
+}
+
+.remy-text-font{
+  font-size:18px;
+  display:inline-block;
+}
+
+.remy-li-font{
+  font-size:20px;
+  font-family: LiSu;
+}
+
+.display-course-left{
+  background-color: white;
+  width:60%;
+  float:left;
+  padding-left:40px;
+  padding-top:20px;
+   margin-top: 40px;
+}
+
+.display-course-right{
+  background-color: white;
+  width:40%;
+  float:left;
+  padding-left:20px;
+  padding-top:20px;
+  margin-top: 40px;
+}
+
+.display-comment-wrapper{
+  background-color:white;
+  margin-top:300px;
+  padding-left: 120px;
+  padding-top:60px;
+  height:auto;
+}
+
+.display-collect-botton{
+  padding:20px;
+  margin:20px;
+  text-align: center;
+}
+
+.remy-list-header{
+  font-size:28px;
+  font-family: KaiTi;
+  color:red;
+  margin-left:100px;
+  margin-top:30px;
+  display:block;
+}
+
+.display-comment-list{
+  width:70%;
+  padding-left:20px;
+  margin-top:10px;
+  margin-left:120px;
+  margin-bottom:30px;
+  display:block;
+  height:auto;
+  overflow: hidden;
+}
+
+.display-comment-element{
+  margin-top:20px;
+  margin-bottom:20px;
+  padding-top:10px;
+  background-color: #ddd;
+}
+
+.display-comment-input{
+  margin-top:20px;
+  padding-bottom:20px;
+  width:70%;
+  margin-left:120px;
+  height:200px;
+}
+
+.display-comment-submit{
+  margin-top:20px;
+  margin-bottom:20px;
+  margin-left:20px;
+}
+
+.comment-name{
+  margin-left:20px;
+  font-weight:bold;
+}
+
+.comment-content{
+  margin-left:20px;
+  margin-top:20px;
+  margin-bottom:20px;
+  font-family:FangSong;
+  font-size:18px;
+}
+
+.comment-date{
+  margin-right:20px;
+  color:blue;
+  float:right;
+}
+
+.remy-header-wrapper{
+  padding-left:40px;
+  padding-top:30px;
+}
+
+.remy-header{
+ font-size:30px;
+  font-weight: bold;
+  color:brown;
+}
+
+.remy-fold-list{
+  margin:30px;
+  padding-left:20px;
+  padding-top:20px;
+  width:80%;
+}
+
+.remy-fold-header{
+  background-color: rgba(219, 159, 201, 0.144);
+  height:100px;
+}
+
+.remy-fold-botton{
+  padding-top:30px;
+  padding-left:100px;
+  width:20%;
+  display:inline-block;
+}
+
+.remy-fold-title{
+  display: inline-block;
+  width: 40%;
+  padding-top:27px;
+  padding-left:100px;
+}
+
+.remy-fold-number{
+  display: inline-block;
+  width: 35%;
+  padding-top:27px;
+  padding-left:100px;
+}
+
+.study-page-top{
+  height:600px;
+  background-color: white;
+  padding:20px 30px;
+  margin: 20px;
+  display:block;
+  width:95%;
+}
+
+.remy-desc-font{
+  font-size:22px;
+  display:block;
+  font-family: STXinwei;
+  margin:20px 10px;
+}
+
+.study-area-left{
+  width:20%;
+  background-color: #ddd;
+  height:90%;
+  margin-top:30px;
+  padding-left:15px;
+  padding-top:20px;
+  overflow:auto;
+  display: inline-block;
+}
+
+.study-area-video{
+  width:50%;
+  height:90%;
+  margin-top:30px;
+  margin-left:20px;
+  padding-left:15px;
+  padding-top:40px;
+  display: inline-block;
+  text-align:center;
+}
+
+.study-area-right{
+  width:20%;
+  background-color:rgb(179, 202, 161);
+  height:90%;
+  margin: 30px 10px;
+  padding-left:15px;
+  padding-top:40px;
+  float:right;
+  overflow:auto;
+  padding-right:20px;
+}
+
+.study-passed-task-list{
+  background-color: white;
+  margin:50px 25%;
+  padding:25px;
+  display:block;
+}
+
+.study-passed-task{
+  background-color:lightgoldenrodyellow;
+  margin:15px 0px;
+  height:470px;
+  padding:10px 20px;
+  display:block;
+}
+
+.teacher-comment{
+  margin:20px 20px;
+  height:150px;
+  overflow:auto;
+  background-color: #ddd;
+  padding:10px 20px;
+}
+
+.teacher-comment-header{
+  font-size:22px;
+  color:red;
+  font-family:STZhongsong;
+}
+
+.display-teacher-comment{
+  padding:10px 20px;
+  width:30%;
+  margin:50px 120px 30px;
+  height:200px;
+  overflow: auto;
+}

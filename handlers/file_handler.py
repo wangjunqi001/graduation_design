@@ -10,7 +10,6 @@ import macro_define as MD
 
 dir_map={
 "1":"static/course_meta",
-"2":"static/student_task"
 }
 
 class FileHandler(RequestHandler):
@@ -19,13 +18,12 @@ class FileHandler(RequestHandler):
     def post(self):
         
         main_dir = dir_map[self.get_argument("file_type", "0")]
-        fst_level_dir = self.get_cookie("name", "");
         snd_level_dir = self.get_argument("course_name", "");
         file_name = self.get_argument("chapter_name", "")+".mp4";
 
         request_file = self.request.files["chapter_file"][0]
 
-        dir_name = os.path.join(MD.ROOT_PATH, main_dir + '/' + fst_level_dir + '/' + snd_level_dir)
+        dir_name = os.path.join(MD.ROOT_PATH, main_dir + '/' + snd_level_dir)
         if not os.path.exists(dir_name):
             os.makedirs(dir_name)
 

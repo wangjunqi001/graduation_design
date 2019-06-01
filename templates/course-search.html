@@ -1,9 +1,9 @@
 <div class="search-header">
           <div class="search-box">
             <div class="input-group col-lg-6">
-              <input type="text" class="form-control"/>
+              <input id="search-box" type="text" class="form-control"/>
               <span class="input-group-btn">
-                <input class="btn btn-primary" type="button" value="GO"/> 
+                <input class="btn btn-primary" type="button" value="GO" onclick='requestCourseByKey()'/> 
               </span>
             </div>
           </div> 
@@ -12,12 +12,12 @@
              <button class="btn btn-default dropdown-toggle col-lg-4" type="button" id="menu1" data-toggle="dropdown">按主题检索
              <span class="caret"></span></button>
              <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                <li role="presentation"><a role="menuitem" href="#">文史</a></li>
-                <li role="presentation"><a role="menuitem" href="#">计算机</a></li>
-                <li role="presentation"><a role="menuitem" href="#">经济</a></li>
-                <li role="presentation"><a role="menuitem" href="#">建筑</a></li>
-                <li role="presentation"><a role="menuitem" href="#">医学</a></li>
-                <li role="presentation"><a role="menuitem" href="#">机械</a></li>
+                <li role="presentation"><a role="menuitem" onclick="javascript:getStaticContent('/course?op_type=1&topic=文史')">文史</a></li>
+                <li role="presentation"><a role="menuitem" onclick="javascript:getStaticContent('/course?op_type=1&topic=计算机')">计算机</a></li>
+                <li role="presentation"><a role="menuitem" onclick="javascript:getStaticContent('/course?op_type=1&topic=经济')">经济</a></li>
+                <li role="presentation"><a role="menuitem" onclick="javascript:getStaticContent('/course?op_type=1&topic=建筑')">建筑</a></li>
+                <li role="presentation"><a role="menuitem" onclick="javascript:getStaticContent('/course?op_type=1&topic=医学')">医学</a></li>
+                <li role="presentation"><a role="menuitem" onclick="javascript:getStaticContent('/course?op_type=1&topic=机械')">机械</a></li>
              </ul>
              </div>
            </div> 
@@ -33,9 +33,9 @@
               </tr>
             </thead>
             <tbody>
-              {% for row in course_data %}
+              {% for row in COURSE_LIST %}
               <tr>
-                <td><a herf="#" onclick="">{{row[0]}}</a></td>
+                <td><a href="#" onclick="javascript:getStaticContent('/course?course_name={{row[0]}}')">{{row[0]}}</a></td>
                 <td>{{row[1]}}</td>
                 <td>{{row[2]}}</td>
               </tr>

@@ -141,14 +141,14 @@
 							{% if USER_TYPE == 0 %}
               <li class="">
 								<!--<a href="#" >-->
-								<a class="" onclick="">
+								<a onclick="javascript:getStaticContent('chapter?op_type=1')">
 									<i class="lnr lnr-code"></i> <span>课程学习</span>
 								</a>
               </li>
-              <li class="">
-                <a href="#"
-                  ><i class="lnr lnr-chart-bars"></i> <span>课程检索</span></a
-                >
+              <li>
+                <a onclick="javascript:getStaticContent('/course')">
+									<i class="lnr lnr-chart-bars"></i><span>课程检索</span>
+								</a>
               </li>
 							{% elif USER_TYPE == 1 %}
               <li class="">
@@ -157,7 +157,7 @@
                 >
               </li>
               <li class="">
-								<a class="" onclick="javascript:getStaticContent('/course_upload')">
+								<a onclick="javascript:getStaticContent('/course_upload')">
                   <i class="lnr lnr-alarm"></i> <span>课程上传</span>
 								</a>
               </li>
