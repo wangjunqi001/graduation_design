@@ -1,0 +1,33 @@
+ <div class="remy-header-wrapper">
+          <h2 style="font-size:32px;font-weight: bold;color:rgb(79, 218, 153)">
+            {{STUDENT_NAME}}&nbsp;-&nbsp;{{CHAPTER_NAME}}
+          </h2>
+           <small style="color:rgb(160, 192, 44);font-size:18px;">片言之赐，当师事之</small>
+        </div>
+        <div class="remy-task-top">
+          <div class="remy-task-body">
+            <h2 style="font-size: 20px;color:deepskyblue;font-weight: bold">学生作业:</h2>
+            <p style="font-size: 18px;font-family:YouYuan;">&nbsp;&nbsp;&nbsp;&nbsp;{{TASK}}</p>
+          </div>
+          <div class="remy-task-desc">
+              <h2 style="font-size: 20px;color:rgb(218, 68, 68);font-weight: bold">本章任务:</h2>
+               <p style="font-size: 18px;font-family:STKaiti;">&nbsp;&nbsp;&nbsp;&nbsp;{{TASK_DESC}}</p>
+          </div>
+        </div>
+         <div class="remy-task-bottom">
+            <div class="form-element">
+              <label for="will_pass" class="col-sm-1">是否通过:</label>
+              <div class="col-lg-3">
+                <input type="radio" name="will_pass" value="3" checked="checked"/> 通过
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="will_pass" value="2"/> 不通过
+              </div>
+            </div>
+            <div class="form-element">
+              <label for="teacher-comment" class="col-sm-1">教师评语:</label>
+              <textarea name="teacher-comment" id="teacher-comment" cols="100" rows="5"></textarea>
+            </div>
+            <div style="text-align: center;margin-top:180px;">
+              <a class="btn btn-primary" onclick="javascript: teacherCommentCommit('{{STUDENT_NAME}}', '{{COURSE_NAME}}' , '{{CHAPTER_NAME}}')">提交</a>
+            </div>
+         </div>

@@ -78,7 +78,7 @@ class ChapterHandler(RequestHandler):
         course_list = self.progress_module.select(table_name, field_content, condition) 
         for course in course_list:
             course_map[course[0]] = {}
-            field_content = "seq, chapter, state"
+            field_content = "seq, chapter, state, end_time"
             condition = "student_name='%s' and course='%s' order by seq" % (student_name, course[0])
             chapter_list = self.progress_module.select(table_name, field_content, condition) 
             course_map[course[0]]["chapters"] = chapter_list
@@ -94,6 +94,46 @@ class ChapterHandler(RequestHandler):
                 course_map[course[0]]["progress"] = progress
 
         self.render("course-collection-list.html", COURSE_MAP=course_map)
+
+    def task_query(self):
+
+        course_map = {}
+
+        teacher_name = self.get_cookie('name');
+        table_name = "remy_course_courses"
+        field_content = "course_name"
+        # 教师关闭课程后将不在该教师的列表中显示该课程
+        condition = "teacher_name='%s' and state=1" % teacher_name
+        course_list = self.chapter_module.select(table_name, field_content, condition) 
+        for course in course_list:
+            course_map[course[0]] = []
+            table_name = self.progress_module.module_name
+            field_content = "end_time, chapter, student_name"
+            condition = "course='%s' AND state=1 ORDER BY end_time" % course[0]
+            task_list = self.progress_module.select(table_name, field_content, condition) 
+            course_map[course[0]] = task_list
+            
+        self.render("course-task-list.html", COURSE_MAP=course_map)
+
+    def task_comment(self):
+        
+        course_name = self.get_argument("course_name").decode("utf8")
+        chapter_name = self.get_argument("chapter_name").decode("utf8")
+        student_name = self.get_argument("student_name").decode("utf8")
+
+        table_name = self.progress_module.module_name
+        field_content = "task"
+        condition = "student_name='%s' and course='%s' and chapter='%s'" % (student_name, course_name, chapter_name)
+        task = self.progress_module.select(table_name, field_content, condition)[0][0] 
+
+        table_name = self.chapter_module.module_name
+        field_content = "chapter_task"
+        condition = "course_name='%s' and chapter_name='%s'" % (course_name, chapter_name)
+        task_desc = self.chapter_module.select(table_name, field_content, condition)[0][0] 
+
+        self.render("task-comment.html", STUDENT_NAME=student_name,
+        CHAPTER_NAME=chapter_name, COURSE_NAME=course_name,
+        TASK=task, TASK_DESC=task_desc)
 
     def course_study(self):
 
@@ -121,14 +161,55 @@ class ChapterHandler(RequestHandler):
         TASK=student_info[1], TEACHER_COMMENT=student_info[2], \
         TASK_LIST=task_list)
 
+    def task_comment_post(self):
+
+        course_name = self.get_argument("course_name").decode("utf8")
+        student_name = self.get_argument("student_name").decode("utf8")
+        chapter_name = self.get_argument("chapter_name").decode("utf8")
+        comment = self.get_argument("comment").decode("utf8")
+        is_pass = self.get_argument("is_pass")
+
+        table_name = self.progress_module.module_name
+        update_expr = "state=%s, teacher_comment='%s', end_time=now()" % (is_pass, comment)
+        condition = "course='%s' AND chapter='%s' AND student_name='%s'" % (course_name, chapter_name, student_name)
+        try:
+            self.chapter_module.update(table_name, update_expr, condition)
+        except Exception as e:
+            self.write(str(e))
+            return
+
+        self.write("作业处理成功！")
+
+    def task_post(self):
+
+        course_name = self.get_argument("course_name").decode("utf8")
+        chapter_name = self.get_argument("chapter_name").decode("utf8")
+        task = self.get_argument("task").decode("utf8")
+        student_name = self.get_cookie("name")
+
+        table_name = self.progress_module.module_name
+        update_expr = "state=1, task='%s', end_time=now()" % task
+        condition = "course='%s' AND chapter='%s' AND student_name='%s'" % (course_name, chapter_name, student_name)
+        try:
+            self.chapter_module.update(table_name, update_expr, condition)
+        except Exception as e:
+            self.write(str(e))
+            return
+
+        self.write("作业提交成功！")
+        
         
     @gen.coroutine
     def get(self):
         op_type = int(self.get_argument("op_type", default="0"))
         if op_type == 1: # 进度表查询
             self.progress_query()
-        if op_type == 2: # 课程学习
+        elif op_type == 2: # 课程学习
             self.course_study()
+        elif op_type == 3: # 教师查询已提交作业
+            self.task_query()
+        elif op_type == 4: # 教师作业评论
+            self.task_comment()
 
     @gen.coroutine
     def post(self):
@@ -138,6 +219,10 @@ class ChapterHandler(RequestHandler):
             self.chapter_add()
         elif op_type == 2: # 进度创建
             self.progress_create()
+        elif op_type == 3: # 作业提交
+            self.task_post()
+        elif op_type == 4: # 作业提交
+            self.task_comment_post()
         
 
 

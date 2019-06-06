@@ -37,7 +37,7 @@
             </textarea>
             <div class="display-comment-submit">
               {% if STATE == 0  or STATE == 2 %}
-              <a class="btn btn-primary col-sm-1" type="botton" onclick="">提交</a>
+              <a class="btn btn-primary col-sm-1" type="botton" onclick="taskCommit('{{COURSE_NAME}}', '{{CHAPTER_NAME}}')">提交</a>
               {% elif STATE == 3 %}
               <a class="btn btn-danger col-sm-3" type="botton" onclick="" disabled>您已经完成该章节的学习任务</a>
               {% elif STATE == 1 %}
@@ -48,7 +48,7 @@
         {% if STATE == 2 %}
         <div class="display-teacher-comment">
           <strong class="remy-strong-font" style="color:red;font-family:STKaiti">您的作业被退回，老师留言：</strong>
-          <p class="remy-text-font">{{TEACHER_COMMENT}} </p>
+          <p class="remy-text-font">&nbsp;&nbsp;&nbsp;&nbsp;{{TEACHER_COMMENT}} </p>
         </div>
         {% end %}
         <div class="study-passed-task-list">

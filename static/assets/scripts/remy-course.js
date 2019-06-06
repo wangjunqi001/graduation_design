@@ -51,6 +51,70 @@ function ajaxPost(url, data) {
   };
 }
 
+function commentCommit(course_name){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("POST", "/course", true);
+
+	var comment = document.getElementById("comment-input");
+	data = new FormData();
+	data.append("op_type", "2");
+	data.append("course_name", course_name);
+	data.append("comment_text", comment.value);
+  xmlhttp.send(data);
+
+  xmlhttp.onreadystatechange = function() {
+    alert(xmlhttp.responseText);
+		getStaticContent('/course?course_name='+course_name);
+  };
+}
+
+function teacherCommentCommit(student_name, course_name, chapter_name){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("POST", "/chapter", true);
+
+	var comment = document.getElementById("teacher-comment");
+	var pass_arr = document.getElementsByName("will_pass") 
+	var is_pass = ""; 
+	for(var i = 0; i < pass_arr.length; ++i){
+		if(pass_arr[i].checked == true)
+			is_pass = pass_arr[i].value;
+	}
+
+	data = new FormData();
+	data.append("op_type", "4");
+	data.append("course_name", course_name);
+	data.append("chapter_name", chapter_name);
+	data.append("student_name", student_name);
+	data.append("comment", comment.value);
+	data.append("is_pass", is_pass);
+  xmlhttp.send(data);
+
+  xmlhttp.onreadystatechange = function() {
+    alert(xmlhttp.responseText);
+		if(xmlhttp.responseText == "作业处理成功！")
+			getStaticContent("/chapter?op_type=3")
+  }
+}
+
+function taskCommit(course_name, chapter_name){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("POST", "/chapter", true);
+	var task = document.getElementById("comment-input");
+
+	data = new FormData();
+	data.append("op_type", "3");
+	data.append("course_name", course_name);
+	data.append("chapter_name", chapter_name);
+	data.append("task", task.value);
+	console.log(task.value);
+  xmlhttp.send(data);
+  xmlhttp.onreadystatechange = function() {
+    alert(xmlhttp.responseText);
+		if(xmlhttp.responseText == "作业提交成功！")
+			getStaticContent("/chapter?op_type=1")
+  }
+}
+
 function createProgress(course_name){
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("POST", "/chapter", true);

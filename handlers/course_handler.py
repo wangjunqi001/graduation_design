@@ -59,6 +59,20 @@ class CourseHandler(RequestHandler):
         course_list = self.course_module.select(table_name, field_content, condition)
         self.render("course-search.html", COURSE_LIST=course_list)
 
+    def comment_add(self):
+
+        ret = {}
+        course_name = self.get_argument("course_name", default="").decode("utf8")    
+        comment_people = self.get_cookie("name", default="").decode("utf8")    
+        comment_text = self.get_argument("comment_text", default="").decode("utf8")    
+        
+        try:
+            ret = self.comment_module.comment_add(course_name, comment_people, comment_text)
+        except Exception as e:
+            self.write("<h2>comment_module_error: %s</h2>" % str(e))
+
+        self.write("<h2>"+ ret.get("msg")+"</h2>");
+        
     def course_add(self):
 
         ret = {}
@@ -84,6 +98,8 @@ class CourseHandler(RequestHandler):
         op_type = int(self.get_argument("op_type", default="0"))
         if op_type == 1:   # 课程创建
             self.course_add()
+        elif op_type == 2: # 评论添加
+            self.comment_add()
             
 
 

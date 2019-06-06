@@ -37,6 +37,7 @@
 			            <th style="text-align:center;">序号</th>
 			            <th style="text-align:center;">章节</th>
 			            <th style="text-align:center;">状态</th>
+			            <th style="text-align:center;">上一次修改时间</th>
 		            </tr>
 	            </thead>
 	            <tbody>
@@ -56,6 +57,7 @@
 									{% elif chapter_info[2] == 3 %}  
                   <td style="color:green">作业已通过</td>
 									{% end %}
+		            	<td>{{chapter_info[3]}}</td>
                 	</tr>
 									{% end %}
               </tbody>

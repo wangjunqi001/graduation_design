@@ -1,0 +1,57 @@
+       <div class="remy-header-wrapper">
+          <h2 class="remy-header">令公桃李满天下，何需堂前再种花</h2>
+        </div>
+				{% set COUNT=0 %}
+				{% for course in COURSE_MAP %}
+				{% set COUNT += 1 %}
+        <div class="remy-fold-list">
+          <div class="remy-fold-header">
+          <div class="remy-fold-title">
+            <strong class="remy-strong-font">{{course}}</strong>
+          </div>
+          <div class="remy-fold-number">
+            <p style="color:rgba(120, 114, 202, 0.726);font-size:20px">
+								未处理的作业数:&nbsp;{{len(COURSE_MAP[course])}}
+						</p>
+          </div>
+          <div class="remy-fold-botton">
+          <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#fold-table-{{COUNT}}" onclick="javascript:
+          var fold_icon = document.getElementById('fold-botton-{{COUNT}}');
+          if(fold_icon.getAttribute('class')=='glyphicon glyphicon-minus')
+            fold_icon.setAttribute('class', 'glyphicon glyphicon-plus');
+          else
+            fold_icon.setAttribute('class', 'glyphicon glyphicon-minus');
+          ">
+	          <span id='fold-botton-{{COUNT}}' class="glyphicon glyphicon-plus"></span>
+          </button>
+          </div>
+          </div>
+          <div id="fold-table-{{COUNT}}" class="collapse">
+				    {% if len(COURSE_MAP[course]) !=0 %}
+            <table class="table table-striped" style="text-align:center;">
+	            <thead>
+		            <tr>
+			            <th style="text-align:center;">提交时间</th>
+			            <th style="text-align:center;">章节</th>
+			            <th style="text-align:center;">学生</th>
+			            <th style="text-align:center;"></th>
+		            </tr>
+	            </thead>
+	            <tbody>
+									{% for task_info in COURSE_MAP[course] %}
+		            	<tr>
+		            	<td>{{task_info[0]}}</td>
+									<td>{{task_info[1]}}</td>
+		            	<td>{{task_info[2]}}</td>
+		            	<td><a onclick="javascript: getStaticContent('/chapter?course_name={{course}}&chapter_name={{task_info[1]}}&student_name={{task_info[2]}}&op_type=4')">处理该作业
+									</td>
+                	</tr>
+									{% end %}
+              </tbody>
+            </table>
+						{% else %}
+							<p class="remy-text-font">当前暂无学生提交作业</p>
+						{% end %}
+          </div>
+        </div>
+				{% end %}

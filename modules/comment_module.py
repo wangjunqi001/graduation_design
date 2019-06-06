@@ -26,3 +26,31 @@ class CommentModule(BaseModule):
                 ENGINE=InnoDB DEFAULT charset=utf8        \
                 '
         self.create_module(self.module_name, create_sql)
+
+    def comment_add(self, course_name, comment_people, comment_text):
+            add_sql = "INSERT INTO %s(comment_people, comment_course, comment_time, comment_text) VALUES('%s', '%s', now(), '%s')"
+
+            self.cursor.execute(add_sql % (self.module_name, comment_people, course_name, comment_text))
+            self.conn.commit()
+            return {"msg":"添加成功！"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
