@@ -1,5 +1,6 @@
 # encoding=utf8
 import sys
+import random
 reload(sys)
 sys.setdefaultencoding('utf8')
 from tornado.web import RequestHandler as RequestHandler 
@@ -40,6 +41,45 @@ class CourseHandler(RequestHandler):
         TEACHER_NAME=course_info[0], STUDENT_LIST=student_list, \
         COMMENT_LIST=comment_list, HAS_COLLECTED=has_collected)
 
+    def render_index(self):
+        table_name = "remy_course_courses"
+        field_content = "course_name"
+        condition = "state=1"
+        course_list = list(self.course_module.select(table_name, field_content, condition))
+        random.shuffle(course_list)
+        self.render("real-index.html", COURSE_LIST=course_list)
+            
+    def render_state_manage(self):
+        course_map = []
+        teacher = self.get_cookie("name", default="").decode("utf8")    
+        
+        table_name = "remy_course_courses"
+        field_content = "course_name, state, student_list"
+        condition = "teacher_name='%s'" % teacher
+        course_list = self.course_module.select(table_name, field_content, condition)
+        for course in course_list:
+            course_info = {}
+            course_name = course[0].encode('utf-8')
+            course_info["name"] = course_name
+            course_info["state"] = course[1]
+            course_info["progresses"] = {}
+            student_list = course[2].split("-")
+            for student in student_list:
+                student_name = student.encode('utf-8')
+                table_name = "remy_course_progresses"
+                field_content = "state"
+                condition = "course='%s' and student_name='%s'" % (course_name, student_name)
+                state_list = self.course_module.select(table_name, field_content, condition)
+                pass_count = 0
+                for state in state_list:
+                    if state[0] == 3:
+                        pass_count += 1
+                course_info["progresses"][student_name] = int(round(float(pass_count)/len(state_list), 2) * 100)
+
+            course_map.append(course_info)
+
+        self.render("course-manage.html", COURSE_MAP=course_map)
+
     @gen.coroutine
     def get(self):
         course_name = self.get_argument("course_name", default="").decode("utf8")    
@@ -56,6 +96,12 @@ class CourseHandler(RequestHandler):
         elif op_type == 2:
             key = self.get_argument("key", default="")   
             condition += " and (course_name LIKE '%%%s%%' OR chapter_list LIKE '%%%s%%' OR teacher_name LIKE '%%%s%%' OR course_desc LIKE '%%%s%%')" % (key, key, key, key)
+        elif op_type == 3:
+            self.render_index()
+            return
+        elif op_type == 4:
+            self.render_state_manage()
+            return
         course_list = self.course_module.select(table_name, field_content, condition)
         self.render("course-search.html", COURSE_LIST=course_list)
 
@@ -90,7 +136,18 @@ class CourseHandler(RequestHandler):
             self.render("chapter-upload.html", CHAPTER_LIST=chapter_list, COURSE_NAME=course_dict.get("course_name"))
         else:
             self.write("<h2"+ ret.get("msg")+"</h2>");
+
+    def modify_course_state(self):
         
+        course_name = self.get_argument("course_name", default="").decode("utf8")    
+        state = self.get_argument("state", default="") 
+
+        table_name = "remy_course_courses"
+        update_expr = "state=%s" % state
+        condition = "course_name='%s'" % course_name
+        self.course_module.update(table_name, update_expr, condition)
+
+        self.write("操作成功！")
 
     @gen.coroutine
     def post(self):
@@ -100,6 +157,8 @@ class CourseHandler(RequestHandler):
             self.course_add()
         elif op_type == 2: # 评论添加
             self.comment_add()
+        elif op_type == 3: # 课程状态修改
+            self.modify_course_state()
             
 
 
