@@ -1,0 +1,54 @@
+        <div class="remy-header-wrapper">
+          <h2>以下是您上传的课程:</h2>
+        </div>
+					{% set COUNT=0 %}
+          {% for course in COURSE_MAP %}
+					{% set COUNT +=1 %}
+        <div class="remy-fold-list">
+          <div class="remy-fold-header">
+          <div class="remy-fold-title">
+            <strong class="remy-strong-font">{{course["name"]}}</strong>
+          </div>
+          <div class="remy-fold-number">
+            <p style="color:rgba(120, 114, 202, 0.726);font-size:20px">该课程共有
+              <span style="color:red;">&nbsp;{{len(course["progresses"])}}&nbsp;</span>个人在学习</p>
+          </div>
+          <div class="remy-fold-botton">
+          <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#fold-table-{{COUNT}}" onclick="javascript:
+          var fold_icon = document.getElementById('fold-botton-{{COUNT}}');
+          if(fold_icon.getAttribute('class')=='glyphicon glyphicon-minus')
+            fold_icon.setAttribute('class', 'glyphicon glyphicon-plus');
+          else
+            fold_icon.setAttribute('class', 'glyphicon glyphicon-minus');
+          ">
+	          <span id='fold-botton-{{COUNT}}' class="glyphicon glyphicon-plus"></span>
+          </button>
+          </div>
+          </div>
+          <div id="fold-table-{{COUNT}}" class="collapse">
+            <table class="table table-striped" style="text-align:center;">
+	            <thead>
+		            <tr>
+			            <th style="text-align:center;">学生</th>
+			            <th style="text-align:center;">进度</th>
+		            </tr>
+	            </thead>
+	            <tbody>
+                {% for student in course["progresses"] %}
+		            <tr>
+		            	<td>{{student}}</td>
+                  <td style="color:red;">{{course["progresses"][student]}}%</td>
+                </tr>
+                {% end %}
+              </tbody>
+            </table>
+            <div style="text-align: center;">
+            {% if course["state"] == 0 %}
+            <a class="btn btn-primary" onclick="javascript:setCourseState('{{course['name']}}', 1)">重启该课程</a>
+            {% elif course["state"] == 1 %}
+            <a class="btn btn-danger" onclick="javascript:setCourseState('{{course['name']}}', 0)">关闭该课程</a>
+            {% end %}
+            </div>
+          </div>
+        </div>
+        {% end %}

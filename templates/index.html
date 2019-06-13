@@ -134,11 +134,11 @@
           <nav>
             <ul class="nav">
               <li class="active">
-                <a href="/index"
+                <a onclick="Javascript:getStaticContent('course?op_type=3')"
                   ><i class="lnr lnr-home"></i> <span>主页</span></a
                 >
               </li>
-							{% if USER_TYPE == 0 %}
+							{% if USER_TYPE == "0" %}
               <li class="">
 								<!--<a href="#" >-->
 								<a onclick="javascript:getStaticContent('chapter?op_type=1')">
@@ -150,9 +150,9 @@
 									<i class="lnr lnr-chart-bars"></i><span>课程检索</span>
 								</a>
               </li>
-							{% elif USER_TYPE == 1 %}
+							{% elif USER_TYPE == "1" %}
               <li class="">
-                <a href="#"
+                <a onclick="javascript:getStaticContent('/course?op_type=4')"
                   ><i class="lnr lnr-cog"></i> <span>课程状态管理</span></a
                 >
               </li>
@@ -180,9 +180,33 @@
       <!-- END LEFT SIDEBAR -->
 			{% end %}
 			{% block main %}
+			<div class="banner">
+					<div class="container">
+							<h2>我们只是精品课程的搬运工 <span>RemyCourse</span></h2>
+							<p>你值得信赖的在线学习平台</p>
+							<div class="wthree_banner_grids">
+								  <div class="col-md-3 wthree_banner_grid">
+									    <i class="fa fa-desktop" aria-hidden="true"></i>
+									    <h4>在线学习</h4>
+								  </div>
+									<div class="col-md-3 wthree_banner_grid">
+										<i class="fa fa-money" aria-hidden="true"></i>
+										<h4>完全免费</h4>
+								  </div>
+									<div class="col-md-3 wthree_banner_grid">
+										<i class="fa fa-users" aria-hidden="true"></i>
+										<h4>师生互动</h4>
+									</div>
+								  <div class="col-md-3 wthree_banner_grid">
+										<i class="fa fa-clock-o" aria-hidden="true"></i>
+										<h4>快速获取</h4>
+								  </div>
+									<div class="clearfix"> </div>
+								</div>
+					</div>
+		 </div>
       <!-- MAIN -->
       <div id="main" class="main">
-				<h2 id="test">TODO: INDEX</h2>
       </div>
       <!-- END MAIN -->
 			{% end %}

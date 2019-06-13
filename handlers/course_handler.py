@@ -63,7 +63,9 @@ class CourseHandler(RequestHandler):
             course_info["name"] = course_name
             course_info["state"] = course[1]
             course_info["progresses"] = {}
-            student_list = course[2].split("-")
+            student_list = []
+            if course[2] != "":
+                student_list = course[2].split("-")
             for student in student_list:
                 student_name = student.encode('utf-8')
                 table_name = "remy_course_progresses"
@@ -74,8 +76,10 @@ class CourseHandler(RequestHandler):
                 for state in state_list:
                     if state[0] == 3:
                         pass_count += 1
-                course_info["progresses"][student_name] = int(round(float(pass_count)/len(state_list), 2) * 100)
-
+                if len(state_list) != 0:
+                    course_info["progresses"][student_name] = int(round(float(pass_count)/len(state_list), 2) * 100)
+                else:
+                    course_info["progresses"][student_name] = 0
             course_map.append(course_info)
 
         self.render("course-manage.html", COURSE_MAP=course_map)

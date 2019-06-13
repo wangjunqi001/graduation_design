@@ -30,20 +30,23 @@
 					<div class="left">
 						<div class="content">
 							<div class="header">
-								<p class="lead">Login to your account</p>
+								<p class="lead">Sign up your account</p>
 							</div>
 							<form action="/user" method="post" class="form-auth-small">
 								<div class="form-group">
 									<label class="control-label sr-only">Account</label>
-									<input name="name" type="text" value="王俊骐" placeholder="Name">
+									<input name="name" type="text">
 								</div>
 								<div class="form-group">
 									<label for="signin-password" class="control-label sr-only">Password</label>
-									<input name="pass_wd" type="password" id="signin-password" value="123456" placeholder="Password">
+									<input name="pass_wd" type="password" id="signin-password">
 								</div>
-								<button name="submit_type" value="2" type="submit" >LOGIN</button>
-								<div class="bottom">
-									<span class="helper-text"><i class="fa fa-lock"></i> <a href="/register">没有账号?注册一个</a></span>								</div>
+								<div class="form-group">
+									<label for="signin-password" class="control-label sr-only">UserType</label>
+									<input name="user_type" type="radio" value="0">学生
+									<input name="user_type" type="radio" value="1">教师
+								</div>
+								<button name="submit_type" value="1" type="submit" >SIGN UP</button>
 						  </form>
 						</div>
 					</div>

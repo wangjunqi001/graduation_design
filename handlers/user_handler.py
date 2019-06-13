@@ -37,7 +37,7 @@ class UserHandler(RequestHandler):
             self.set_cookie("pass_wd", unicode(self.user_dict["pass_wd"]))
             self.set_cookie("user_type", unicode(ret["user_type"]))
 
-            self.render("index.html", NAME=self.user_dict["name"], USER_TYPE=int(self.get_cookie("user_type", "-1")))
+            self.render("index.html", NAME=self.user_dict["name"], USER_TYPE=self.get_cookie("user_type", "-1"))
         elif ret.get("msg") == "注册成功！":
             ret_msg = "".join([user_type[int(self.user_dict["user_type"])], ret["msg"], " ", "用户名：", self.user_dict["name"]])
             self.render("user_ret.html", msg=ret_msg, mark=1)

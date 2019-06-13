@@ -1,7 +1,8 @@
 #main-title {
+  width:50%;
   margin: 20px;
   font-family: Microsoft Yahei;
-  display: block;
+  display: inline-block;
 }
 
 .course-upload-form {
@@ -63,6 +64,7 @@
 .display-course-text{
   width:80%;
   height:300px;
+	overflow:auto;
 }
 
 .display-course-teacher{
@@ -82,6 +84,7 @@
   margin-top:20px;
   margin-left:50px;
   width:80%;
+	overflow:auto;
 }
 
 .remy-strong-font{
@@ -359,3 +362,85 @@
    margin-left:100px;
 }
 
+.banner {
+    background: url(/static/assets/img/banner.jpg) no-repeat 0px 0px;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    min-height: 700px;
+    position: relative;
+    text-align: center;
+    padding: 10em 0 0;
+}
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.wthree_banner_grid {
+    text-align: center;
+}
+
+.banner h2 {
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 2.4em;
+    font-weight: bold;
+    line-height: 1.1;
+    box-sizing: border-box;
+    font-family: 'Work Sans', sans-serif;
+    margin-bottom: 20px;
+}
+
+.banner h2 span {
+    color: #05d2ff;
+}
+
+.banner p {
+    color: #fff;
+    line-height: 1.5em;
+}
+
+.wthree_banner_grid i {
+    font-size: 2em;
+    color: #fff;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.wthree_banner_grids {
+    padding: 8em 0;
+}
+
+.wthree_banner_grid h4 {
+    text-transform: capitalize;
+    font-size: 1em;
+    color: #fff;
+    padding-top: 1em;
+    font-weight: 500;
+    line-height: 1.1;
+    display: block;
+    -webkit-margin-before: 1.33em;
+    -webkit-margin-after: 1.33em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.banner-wraper{
+  height:350px;
+  width:600px;
+  margin:50px 500px;
+}       
+        

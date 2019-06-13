@@ -51,6 +51,21 @@ function ajaxPost(url, data) {
   };
 }
 
+function setCourseState(course_name, state){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("POST", '/course', true);
+	data = new FormData();
+	data.append("course_name", course_name);
+	data.append("state", state);
+	data.append("op_type", 3);
+  xmlhttp.send(data);
+
+  xmlhttp.onreadystatechange = function() {
+    alert(xmlhttp.responseText);
+		getStaticContent('/course?op_type=4');
+  };
+}
+
 function commentCommit(course_name){
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.open("POST", "/course", true);
@@ -139,6 +154,11 @@ function courseUpload() {
     var course_topic = document.getElementById("course_topic");
 		var index = course_topic.selectedIndex;
 		var course_text = document.getElementById("course_text");
+		var course_file = document.getElementById("course_file");
+  	if (!course_file || !course_file.value) {
+    	alert("请选择图片");
+    	return false;
+  	}
     var chapter_list = "";
     for (var i = 0; i < chapter_names.length; ++i) {
       if (!alertNone(chapter_names[i].value)) return false;
@@ -147,7 +167,7 @@ function courseUpload() {
     }
     // ajax 提交信息
     var request_url = "/course";
-		data = new FormData()
+		data = new FormData();
 		data.append("course_name", course_name[0].value);
 		data.append("chapter_list", chapter_list);
 		data.append("course_topic", course_topic.options[index].text);
@@ -155,7 +175,23 @@ function courseUpload() {
 		data.append("op_type", "1");
 		console.log(data);
     ajaxPost(request_url, data);
+		fileUpload(course_file.files[0], course_name[0].value);
   } else return false;
+}
+
+function fileUpload(course_file, course_name){
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.open("POST", '/file', true);
+
+	data = new FormData();
+	data.append("course_file", course_file);
+	data.append("course_name", course_name);
+	data.append("file_type", "2");
+  xmlhttp.send(data);
+
+  xmlhttp.onreadystatechange = function() {
+    alert(xmlhttp.responseText);
+  };
 }
 
 // @function: ajax request & change main div content & get method & no param
@@ -178,7 +214,7 @@ function requestCourseByKey(){
 function metaFileUpload(index, type) {
   var fileObj = document.getElementById("chapter-file"+"-"+index);
   if (!fileObj || !fileObj.value) {
-    alert("请选择图片");
+    alert("请选择文件");
     return;
   }
   var formData = new FormData();
@@ -229,9 +265,15 @@ function chapterUpload(index){
   	xmlhttp.onreadystatechange = function() {
 			if(!is_last_chapter){
     		var resp = xmlhttp.responseText;
-				if(resp=="上传成功"){ //删除上传成功的节点
-					ucl.removeChild((ucl.childNodes)[2 * index + 1]);
-					cfc.removeChild((cfc.childNodes)[2 * index + 1]);
+				if(resp=="上传成功"){ //删除上传成功的当前节点
+					for(var i = 0; i < ucl.childNodes.length; ++i){
+						if(ucl.childNodes[i].className == "active"){
+							ucl.removeChild(ucl.childNodes[i]);
+							cfc.removeChild(cfc.childNodes[i]);
+							ucl.removeChild(ucl.childNodes[i]);
+							cfc.removeChild(cfc.childNodes[i]);
+						}
+					}
 				}	
 				alert(resp);
 			}

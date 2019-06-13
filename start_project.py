@@ -24,6 +24,10 @@ class UploadHandler(RequestHandler):
     def get(self):
         self.render("course-upload.html")
 
+class RegisterHandler(RequestHandler):
+    def get(self):
+        self.render("page-register.html")
+
 def init_app():
     return Application([
         # 动态网页
@@ -36,7 +40,8 @@ def init_app():
         # static的唯一作用就是提供js css img等素材支持
         (r"/test", TestHandler),
         (r"/login", LoginHandler),
-        (r"/course_upload", UploadHandler)
+        (r"/course_upload", UploadHandler),
+        (r"/register", RegisterHandler)
     ],
     template_path = os.path.join(os.path.dirname(__file__), "templates"),
     static_path = os.path.join(os.path.dirname(__file__), "static"),
